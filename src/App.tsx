@@ -1,14 +1,14 @@
+import { Outlet } from 'react-router-dom'
 import './App.css'
-import LandingPage from './pages/landingpage'
+import { ThemeProvider } from './components/theme-provider';
 
 function App() {
 
   return (
     <>
-      <LandingPage />
-      
+        <Outlet />
     </>
-  )
+  );
 }
 
 export default App

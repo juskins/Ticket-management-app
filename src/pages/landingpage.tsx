@@ -16,10 +16,10 @@ export default function LandingPage() {
          {/* Max width container */}
          <div className="mx-auto max-w-[1440px]">
             {/* Hero Section with wavy background and decorative circles */}
-            <section className="relative overflow-hidden bg-linear-to-br from-purple-50 to-blue-50 pb-32 pt-20">
+            <section className="relative overflow-hidden bg-linear-to-br from-purple-100 to-blue-90 pb-32 pt-20">
                {/* Wavy bottom edge using clip-path */}
                <div
-                  className="absolute inset-0 bg-linear-to-br from-purple-50 to-blue-50"
+                  className="absolute inset-0 bg-linear-to-br from-purple-100 to-blue-100"
                   style={{ clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)" }}
                />
 
@@ -57,7 +57,8 @@ export default function LandingPage() {
                      <Button
                         variant="outline"
                         size="lg"
-                        className="min-w-[120px] bg-transparent"
+                        className="min-w-[120px] bg-white"
+                        onClick={()=>window.location.href = '/login'}
                      >
                         Login
                      </Button>
@@ -147,7 +148,7 @@ export default function LandingPage() {
             {/* Footer */}
             <footer className="border-t border-border px-6 py-12">
                <div className="mx-auto max-w-6xl">
-                  <div className="grid gap-8 md:grid-cols-5">
+                  <div className="gap-8 flex flex-wrap justify-between">
                      {/* Brand Column */}
                      <div className="md:col-span-2">
                         <div className="mb-4 flex items-center gap-2">
