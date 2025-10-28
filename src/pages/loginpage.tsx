@@ -66,11 +66,31 @@ export default function LoginPage() {
 
     // Simulate API call
     setTimeout(() => {
-      // Mock authentication - accept demo@ticketflow.com / password123
-      if (email === "demo@ticketflow.com" && password === "password123") {
+      // Check for users in localStorage first
+      const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+      const foundUser = existingUsers.find(
+        (u: any) => u.email === email && u.password === password
+      );
+
+      // Also accept demo credentials
+      const isDemoUser = email === "demo@ticketflow.com" && password === "password123";
+
+      if (foundUser || isDemoUser) {
         // Store auth token in localStorage
-        const mockToken = btoa(`${email}:${Date.now()}`);
-        localStorage.setItem("ticketapp_session", mockToken);
+        if (foundUser) {
+          localStorage.setItem(
+            "ticketapp_session",
+            JSON.stringify({
+              userId: foundUser.id,
+              email: foundUser.email,
+              fullName: foundUser.fullName,
+            })
+          );
+        } else {
+          const mockToken = btoa(`${email}:${Date.now()}`);
+          localStorage.setItem("ticketapp_session", mockToken);
+        }
+        
         localStorage.setItem("userEmail", email);
 
         toast.success("Login successful!", {
@@ -78,7 +98,7 @@ export default function LoginPage() {
         });
 
         // Redirect to dashboard
-         navigate("/dashboard");
+        navigate("/dashboard");
       } else {
         setIsLoading(false);
         toast.error("Login failed", {
@@ -183,7 +203,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-indigo-600 text-white" disabled={isLoading}>
                 {isLoading ? "Logging in..." : "Log In"}
               </Button>
 
@@ -196,16 +216,18 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full bg-transparent"
-              >
-                Create New Account
-              </Button>
+              <Link to="/signup">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full bg-transparent"
+                >
+                  Create New Account
+                </Button>
+              </Link>
             </form>
 
-            <div className="mt-4 rounded-md bg-blue-50 p-4">
+            {/* <div className="mt-4 rounded-md bg-blue-50 p-4">
               <p className="text-sm text-blue-800">
                 <strong>Demo credentials:</strong>
                 <br />
@@ -213,7 +235,7 @@ export default function LoginPage() {
                 <br />
                 Password: password123
               </p>
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       </main>

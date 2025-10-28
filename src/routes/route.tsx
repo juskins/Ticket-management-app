@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/dashboardLayout";
 import DashboardPage from "@/pages/dashboard";
 import LandingPage from "@/pages/landingpage";
 import LoginPage from "@/pages/loginpage";
+import SignupPage from "@/pages/signuppage";
 import TicketsPage from "@/pages/tickets";
 import { createBrowserRouter } from "react-router";
 
@@ -34,6 +35,10 @@ export const Routes = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />, // This will handle the redirection
+      },
+      {
+        path: "/signup",
+        element: <SignupPage />,
       },
     ],
   },

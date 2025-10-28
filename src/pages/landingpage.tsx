@@ -19,15 +19,15 @@ export default function LandingPage() {
             <section className="relative overflow-hidden bg-linear-to-br from-purple-100 to-blue-90 pb-32 pt-20">
                {/* Wavy bottom edge using clip-path */}
                <div
-                  className="absolute inset-0 bg-linear-to-br from-purple-100 to-blue-100"
+                  className="absolute inset-0 bg-linear-to-br from-purple-100 to-blue-600"
                   style={{ clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)" }}
                />
 
                {/* Decorative circle - left side, in hero */}
-               <div className="absolute  top-[50px] h-[250px] w-[250px] rounded-full bg-purple-400/40 blur-3xl" />
+               <div className="absolute  top-[50px] h-[250px] w-[250px] rounded-full bg-purple-400/40 blur-lg" />
 
                {/* Decorative circle - right side, overlapping hero section */}
-               <div className="absolute right-[-50px] top-[200px] h-[400px] w-[400px] rounded-full bg-pink-400/30 blur-3xl" />
+               <div className="absolute right-[-50px] top-[200px] h-[400px] w-[400px] rounded-full bg-pink-400/30 blur-lg" />
 
                {/* Hero Content */}
                <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
@@ -63,6 +63,7 @@ export default function LandingPage() {
                         Login
                      </Button>
                      <Button
+                        onClick={() => window.location.href = '/signup'}
                         size="lg"
                         className="min-w-[120px] bg-indigo-600 hover:bg-indigo-700"
                      >
@@ -256,7 +257,7 @@ export default function LandingPage() {
                      <h3 className="mb-2 text-2xl font-bold text-foreground">
                         Ready to streamline your support?
                      </h3>
-                     <Button className="mt-4 bg-indigo-600 hover:bg-indigo-700">
+                     <Button onClick={() => window.location.href = '/signup'} className="mt-4 bg-indigo-600 hover:bg-indigo-700">
                         Get Started
                      </Button>
                   </div>

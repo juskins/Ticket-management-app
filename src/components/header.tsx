@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <div>
       <header className="border-b bg-background">
-        <div className="flex h-16 items-center justify-end gap-4 px-8">
+        <div className="flex h-16 items-center justify-end gap-4 px-4 sm:px-8 pl-16 lg:pl-8">
           <button className="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800">
             <Search className="h-5 w-5 text-gray-600" />
           </button>

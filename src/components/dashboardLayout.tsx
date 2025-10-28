@@ -7,6 +7,8 @@ import {
   Search,
   Settings,
   LayoutDashboard,
+  Menu,
+  X,
 } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import Header from "./header";
@@ -19,6 +21,7 @@ export default function DashboardLayout({
 }) {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = window.location.pathname;
 
   useEffect(() => {
@@ -43,16 +46,51 @@ export default function DashboardLayout({
   };
 
   const handleManageTickets = () => {
-    // Navigate to manage tickets page (to be created)
     navigate("/tickets");
+    setIsSidebarOpen(false); // Close sidebar on mobile after navigation
+  };
+
+  const handleDashboardClick = () => {
+    navigate("/dashboard");
+    setIsSidebarOpen(false); // Close sidebar on mobile after navigation
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <div className="flex min-h-screen bg-gray-50">
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleSidebar}
+            className="fixed top-4 left-4 z-50 lg:hidden rounded-lg p-2 shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            aria-label="Toggle sidebar"
+          >
+            {isSidebarOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
+
+          {/* Overlay for mobile */}
+          {isSidebarOpen && (
+            <div
+              className="fixed inset-0 z-30 lg:hidden"
+              onClick={() => setIsSidebarOpen(false)}
+              aria-hidden="true"
+            />
+          )}
+
           {/* Sidebar */}
-          <aside className="w-64 border-r bg-background">
+          <aside
+            className={`fixed lg:static inset-y-0 left-0 z-40 w-64 transform border-r bg-background transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+              isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
             <div className="flex h-full flex-col">
               {/* Logo */}
               <div className="border-b p-6">
@@ -75,7 +113,7 @@ export default function DashboardLayout({
                       ? "bg-indigo-50 dark:bg-indigo-900"
                       : "hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-50"
                   }`}
-                  onClick={() => navigate("/dashboard")}
+                  onClick={handleDashboardClick}
                 >
                   <LayoutDashboard className="h-5 w-5" />
                   Dashboard
@@ -108,10 +146,12 @@ export default function DashboardLayout({
           </aside>
 
           {/* Main Content */}
-          <div className="flex-1 overflow-y-auto h-screen">
+          <div className="flex-1 overflow-y-auto h-screen w-full lg:w-auto">
             {/* Header */}
             <Header />
-            <main className="bg-[#FBFCF8] dark:bg-accent">{children}</main>
+            <main className="bg-[#FBFCF8] dark:bg-accent pt-16 lg:pt-0">
+              {children}
+            </main>
           </div>
         </div>
       </ThemeProvider>
